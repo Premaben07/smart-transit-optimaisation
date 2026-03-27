@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | SmartTransit Chicago</title>
+    <style>
+        :root { --primary: #00a1de; --dark: #0f172a; --bg: #f1f5f9; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh;
+        }
+
+        .login-card {
+            background: white; padding: 40px; border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); width: 100%; max-width: 400px;
+            text-align: center;
+        }
+
+        .login-card h2 { color: var(--dark); margin-bottom: 10px; }
+        .login-card p { color: #64748b; font-size: 0.9rem; margin-bottom: 30px; }
+
+        .input-group { text-align: left; margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.85rem; }
+        .input-group input, .input-group select {
+            width: 100%; padding: 12px; border: 1px solid #e2e8f0;
+            border-radius: 8px; box-sizing: border-box; font-size: 1rem;
+        }
+
+        .role-selector {
+            display: flex; gap: 10px; margin-bottom: 25px;
+        }
+
+        .role-option {
+            flex: 1; padding: 10px; border: 2px solid #e2e8f0;
+            border-radius: 8px; cursor: pointer; font-weight: bold;
+            transition: 0.3s; color: #64748b;
+        }
+
+        .role-option.selected {
+            border-color: var(--primary); background: #e0f2fe; color: var(--primary);
+        }
+
+        .btn-login {
+            width: 100%; padding: 14px; background: var(--primary);
+            color: white; border: none; border-radius: 8px;
+            font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.2s;
+        }
+
+        .btn-login:hover { background: #0081b3; transform: translateY(-1px); }
+        
+        .footer-link { margin-top: 20px; font-size: 0.8rem; color: #94a3b8; }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h2>SmartTransit</h2>
+        <p>Urban Optimization System</p>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="Enter your name" required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <label style="display:block; text-align:left; margin-bottom:8px; font-weight:600; font-size:0.85rem;">Login As:</label>
+            <div class="role-selector">
+                <div class="role-option selected" id="opt-user" onclick="selectRole('user')">Commuter</div>
+                <div class="role-option" id="opt-admin" onclick="selectRole('admin')">Admin</div>
+            </div>
+
+            <button type="submit" class="btn-login">Sign In</button>
+        </form>
+
+        <div class="footer-link">
+            Chicago Transit Authority Dashboard v4.2
+        </div>
+    </div>
+
+    <script>
+        let selectedRole = 'user';
+
+        function selectRole(role) {
+            selectedRole = role;
+            document.getElementById('opt-user').classList.toggle('selected', role === 'user');
+            document.getElementById('opt-admin').classList.toggle('selected', role === 'admin');
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const user = document.getElementById('username').value;
+            
+            // Simulation Logic: 
+            // In a real project, you would send this to FastAPI (main.py) for verification.
+            if (selectedRole === 'admin') {
+                console.log("Redirecting to Admin Dashboard...");
+                window.location.href = "admin_dash.html";
+            } else {
+                console.log("Redirecting to User Dashboard...");
+                window.location.href = "user_dashboard.html";
+            }
+        });
+    </script>
+</body>
+</html>
